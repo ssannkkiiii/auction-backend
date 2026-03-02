@@ -4,7 +4,7 @@ from sqlalchemy.pool import NullPool
 
 from backend.core.conf import settings
 from backend.db.base import Base
-from backend.db.models import Lot, Bid  # noqa: F401 - register models
+from backend.db.models import Lot, Bid
 
 
 def get_engine():

@@ -19,6 +19,7 @@ class LotResponse(BaseModel):
     title: str
     description: str
     start_price: Decimal
+    current_price: Decimal
     status: LotStatus
     end_time: datetime | None
     created_at: datetime
@@ -31,6 +32,7 @@ class LotListResponse(BaseModel):
     title: str
     description: str
     start_price: Decimal
+    current_price: Decimal
     status: LotStatus
     end_time: datetime | None
     created_at: datetime

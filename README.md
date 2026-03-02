@@ -4,9 +4,9 @@
 
 ## Можливості
 
-- **Лоти**: стартова ціна, статус `running` / `ended`
+- **Лоти**: стартова ціна, поточна ціна (найвища ставка або стартова), статус `running` / `ended`
 - **REST**: створити лот, зробити ставку, отримати список активних лотів
-- **WebSocket**: підписка на події лота — нові ставки та подовження часу
+- **WebSocket**: підписка на події лота — хто яку ставку зробив, стартова/поточна ціна, подовження часу
 
 ## Запуск через Docker (рекомендовано)
 
@@ -76,7 +76,7 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 |-------|------|------|
 | `POST` | `/lots` | Створити лот (title, description, start_price) |
 | `GET`  | `/lots` | Список активних лотів (status=running) |
-| `GET`  | `/lots/{lot_id}` | Деталі лота |
+| `GET`  | `/lots/{lot_id}` | Деталі лота (start_price, current_price) |
 | `POST` | `/lots/{lot_id}/bids` | Зробити ставку (bidder, amount) |
 
 ### WebSocket
@@ -87,14 +87,17 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
 ### Формат повідомлень WebSocket
 
-Нова ставка:
+Нова ставка (хто яку ставку зробив + стартова та поточна ціна лота):
 
 ```json
 {
   "type": "bid_placed",
   "lot_id": 1,
   "bidder": "John",
-  "amount": 105
+  "amount": 105,
+  "start_price": 100,
+  "current_price": 105,
+  "new_bid_display": "John поставив 105.00"
 }
 ```
 
